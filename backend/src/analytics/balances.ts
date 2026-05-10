@@ -37,26 +37,31 @@ export async function getBalanceHistory(wallet: string) {
   return result.rows;
 }
 
-export async function computeBalanceStats(wallet: string) {
-  const history = await getBalanceHistory(wallet);
-  
+export function computeBalanceStats(history: BalancePoint[], now: Date) {
   if (history.length === 0) {
     return {
       peakBalance: 0,
       currentBalance: 0,
       timeWeightedBalance: 0,
+      totalDaysHolding: 0,
+      firstDepositAt: null,
     };
   }
 
-  const peakBalance = Math.max(...history.map((h: any) => parseFloat(h.balance)));
-  const currentBalance = parseFloat(history[history.length - 1].balance);
+  const peakBalance = Math.max(...history.map(h => Number(h.balance)));
+  const currentBalance = Number(history[history.length - 1].balance);
+  
+  const firstDepositAt = history[0].timestamp;
+  const totalDaysHolding = Math.floor((now.getTime() - firstDepositAt.getTime()) / (1000 * 60 * 60 * 24));
   
   const totalDays = history.length;
-  const timeWeightedBalance = history.reduce((sum: number, h: any) => sum + parseFloat(h.balance), 0) / totalDays;
+  const timeWeightedBalance = history.reduce((sum, h) => sum + Number(h.balance), 0) / totalDays;
 
   return {
     peakBalance,
     currentBalance,
     timeWeightedBalance: Math.round(timeWeightedBalance),
+    totalDaysHolding,
+    firstDepositAt,
   };
 }
