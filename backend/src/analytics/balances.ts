@@ -41,7 +41,7 @@ export function computeBalanceStats(history: BalancePoint[], now: Date) {
   if (history.length === 0) {
     return {
       peakBalance: 0,
-      currentBalance: 0,
+      currentBalance: 0n,
       timeWeightedBalance: 0,
       totalDaysHolding: 0,
       firstDepositAt: null,
@@ -49,7 +49,7 @@ export function computeBalanceStats(history: BalancePoint[], now: Date) {
   }
 
   const peakBalance = Math.max(...history.map(h => Number(h.balance)));
-  const currentBalance = Number(history[history.length - 1].balance);
+  const currentBalance = history[history.length - 1].balance; // Keep as bigint
   
   const firstDepositAt = history[0].timestamp;
   const totalDaysHolding = Math.floor((now.getTime() - firstDepositAt.getTime()) / (1000 * 60 * 60 * 24));
@@ -59,7 +59,7 @@ export function computeBalanceStats(history: BalancePoint[], now: Date) {
 
   return {
     peakBalance,
-    currentBalance,
+    currentBalance, // bigint
     timeWeightedBalance: Math.round(timeWeightedBalance),
     totalDaysHolding,
     firstDepositAt,
