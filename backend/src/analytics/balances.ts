@@ -1,4 +1,5 @@
 import 'dotenv/config';
+import { db } from '../db/client';
 
 const RPC_URL = process.env.MONAD_RPC_URL!;
 const SHMONAD = process.env.SHMONAD_ADDRESS!;
@@ -26,5 +27,36 @@ export interface BalancePoint {
   timestamp: Date;
 }
 
+export async function getBalanceHistory(wallet: string) {
+  const result = await db.query(
+    `SELECT date, balance FROM balance_history 
+     WHERE wallet = $1 
+     ORDER BY date ASC`,
+    [wallet.toLowerCase()]
+  );
+  return result.rows;
+}
 
+export async function computeBalanceStats(wallet: string) {
+  const history = await getBalanceHistory(wallet);
+  
+  if (history.length === 0) {
+    return {
+      peakBalance: 0,
+      currentBalance: 0,
+      timeWeightedBalance: 0,
+    };
+  }
 
+  const peakBalance = Math.max(...history.map((h: any) => parseFloat(h.balance)));
+  const currentBalance = parseFloat(history[history.length - 1].balance);
+  
+  const totalDays = history.length;
+  const timeWeightedBalance = history.reduce((sum: number, h: any) => sum + parseFloat(h.balance), 0) / totalDays;
+
+  return {
+    peakBalance,
+    currentBalance,
+    timeWeightedBalance: Math.round(timeWeightedBalance),
+  };
+}
