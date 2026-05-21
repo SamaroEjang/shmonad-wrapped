@@ -28,9 +28,9 @@ export default function Home() {
       <div className="relative z-10 backdrop-blur-xl bg-white/5 border border-white/10 rounded-3xl p-10 flex flex-col items-center gap-6 w-full max-w-md mx-4 shadow-2xl">
 
         {/* Logo / icon */}
-        <div className="w-16 h-16 rounded-2xl bg-purple-600/30 border border-purple-500/40 flex items-center justify-center text-3xl backdrop-blur-sm">
-          ⬡
-        </div>
+       <div className="w-16 h-16 rounded-full overflow-hidden">
+  <img src="/shmonad-icon.png" alt="shMonad" className="w-full h-full object-cover" />
+</div>
 
         {/* Title */}
         <div className="text-center">
