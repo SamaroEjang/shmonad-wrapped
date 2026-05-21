@@ -33,11 +33,7 @@ export function ConvictionSlide({ data }: { data: WrappedData }) {
               <p className="text-[10px] md:text-xs text-white/50 mb-1 font-mono">Longest Streak</p>
               <p className="text-lg md:text-xl font-bold">{data.longestStreakDays} days</p>
             </div>
-            <div className="bg-white/5 rounded-xl md:rounded-2xl p-3 md:p-4 backdrop-blur-sm">
-              <p className="text-[10px] md:text-xs text-white/50 mb-1 font-mono">Time-Weighted Balance</p>
-              <p className="text-lg md:text-xl font-bold">{data.timeWeightedBalance.toLocaleString()}</p>
-            </div>
-          </div>
+           </div>
         </div>
       </div>
     </div>
