@@ -12,15 +12,15 @@ export function ShareButtons({ wallet }: { wallet: string }) {
       if (!slideElement) return;
 
       const dataUrl = await domtoimage.toPng(slideElement, {
-        quality: 0.95,
-        bgcolor: '#4c1d95',
-        width: slideElement.offsetWidth * 2,
-        height: slideElement.offsetHeight * 2,
-        style: {
-          transform: 'scale(2)',
-          transformOrigin: 'top left',
-          width: slideElement.offsetWidth + 'px',
-          height: slideElement.offsetHeight + 'px'
+        quality: 1,
+        bgcolor: '#030407',
+        width: slideElement.offsetWidth,
+        height: slideElement.offsetHeight,
+        filter: (node: HTMLElement) => {
+          if (node.classList?.contains('flex-none')) return false;
+          if (node.style?.backdropFilter) node.style.backdropFilter = 'none';
+          if (node.style?.webkitBackdropFilter) node.style.webkitBackdropFilter = 'none';
+          return true;
         }
       });
 
@@ -37,11 +37,11 @@ export function ShareButtons({ wallet }: { wallet: string }) {
   };
 
   const shareToTwitter = () => {
-    const text = encodeURIComponent(`Check out my shMonad Wrapped 2025! 🟣\n\n${window.location.href}`);
+    const text = encodeURIComponent(`Check out my shMonad Wrapped! 🎊\n\n${window.location.href}`);
     window.open(`https://twitter.com/intent/tweet?text=${text}`, '_blank');
   };
 
- return (
+  return (
     <div className="flex gap-3">
       <button
         onClick={captureAndDownload}
@@ -55,7 +55,7 @@ export function ShareButtons({ wallet }: { wallet: string }) {
           border: '1px solid rgba(255, 255, 255, 0.2)',
         }}
       >
-        {isCapturing ? '📸 CAPTURING...' : '⬇️ DOWNLOAD'}
+        {isCapturing ? '📷 CAPTURING...' : '⬇️ DOWNLOAD'}
       </button>
       <button
         onClick={shareToTwitter}
