@@ -2,18 +2,33 @@
 import { useState } from 'react';
 import { WrappedData } from '@/lib/api';
 
-export function WelcomeSlide({ data }: { data: WrappedData }) {
-  const [twitterHandle, setTwitterHandle] = useState('');
-  const [profilePic, setProfilePic] = useState('');
-  const [showInput, setShowInput] = useState(true);
+type WelcomeSlideProps = {
+  data: WrappedData;
+  twitterHandle: string;
+  profilePic: string;
+  setTwitterHandle: (handle: string) => void;
+  setProfilePic: (url: string) => void;
+};
+
+export function WelcomeSlide({
+  data,
+  twitterHandle,
+  profilePic,
+  setTwitterHandle,
+  setProfilePic,
+}: WelcomeSlideProps) {
+  const [imageFailed, setImageFailed] = useState(false);
 
   const handleConnect = () => {
     if (twitterHandle.trim()) {
       const handle = twitterHandle.replace('@', '');
+      setTwitterHandle(handle);
       setProfilePic(`https://unavatar.io/twitter/${handle}`);
-      setShowInput(false);
+      setImageFailed(false);
     }
   };
+
+  const showInput = !profilePic;
 
   return (
     <div className="min-h-full grid grid-cols-1 md:grid-cols-2 items-center text-white relative" suppressHydrationWarning>
@@ -40,8 +55,14 @@ export function WelcomeSlide({ data }: { data: WrappedData }) {
             <img 
               src={profilePic} 
               alt="Profile" 
-              className="w-12 h-12 md:w-16 md:h-16 rounded-full mb-3 md:mb-4 border-2 border-white/20 mx-auto"
+              className={`w-12 h-12 md:w-16 md:h-16 rounded-full mb-3 md:mb-4 border-2 border-white/20 mx-auto ${imageFailed ? 'hidden' : ''}`}
+              onError={() => setImageFailed(true)}
             />
+          )}
+          {profilePic && imageFailed && (
+            <div className="w-12 h-12 md:w-16 md:h-16 rounded-full mb-3 md:mb-4 border border-white/20 bg-white/10 mx-auto flex items-center justify-center font-mono text-xs text-white/60">
+              @{twitterHandle.slice(0, 2).toUpperCase()}
+            </div>
           )}
           
           <div className="font-mono text-[10px] md:text-xs bg-white/5 px-3 md:px-4 py-1.5 md:py-2 rounded-full inline-block mb-2 md:mb-3 tracking-wider">

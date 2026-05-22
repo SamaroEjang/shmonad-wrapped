@@ -15,14 +15,23 @@ export function SlideContainer({ data }: { data: WrappedData }) {
   const [previous, setPrevious] = useState(0);
   const [direction, setDirection] = useState<'left' | 'right'>('right');
   const [isAnimating, setIsAnimating] = useState(false);
+  const [twitterHandle, setTwitterHandle] = useState('');
+  const [profilePic, setProfilePic] = useState('');
   
   const slides = [
-    <WelcomeSlide key="welcome" data={data} />,
+    <WelcomeSlide
+      key="welcome"
+      data={data}
+      twitterHandle={twitterHandle}
+      profilePic={profilePic}
+      setTwitterHandle={setTwitterHandle}
+      setProfilePic={setProfilePic}
+    />,
     <StatsSlide key="stats" data={data} />,
     <ConvictionSlide key="conviction" data={data} />,
     <PointsSlide key="points" data={data} />,
     <MonthlySlide key="monthly" data={data} />,
-    <TraitsSlide key="traits" data={data} />,
+    <TraitsSlide key="traits" data={data} twitterHandle={twitterHandle} profilePic={profilePic} />,
   ];
 
   const handleSlideChange = (newIndex: number) => {
