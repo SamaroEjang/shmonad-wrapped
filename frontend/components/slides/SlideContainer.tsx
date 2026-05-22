@@ -1,5 +1,5 @@
 'use client';
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import { WrappedData } from '@/lib/api';
 import { WelcomeSlide } from './WelcomeSlide';
 import { StatsSlide } from './StatsSlide';
@@ -42,7 +42,7 @@ export function SlideContainer({ data }: { data: WrappedData }) {
     <div className="min-h-screen flex items-center justify-center" style={{ backgroundColor: '#030407' }}>
       <ShaderBackground />
       <div className="slide-container w-screen h-screen overflow-hidden relative flex flex-col">
-        <div className="flex-1 relative overflow-hidden">
+        <div className="flex-1 relative overflow-hidden" data-shmonad-capture-root>
           {/* Previous slide animating out */}
           {isAnimating && (
             <div className={`absolute inset-0 overflow-y-auto scrollbar-hide ${direction === 'right' ? 'slide-out-left' : 'slide-out-right'}`}>
@@ -51,7 +51,7 @@ export function SlideContainer({ data }: { data: WrappedData }) {
           )}
           
           {/* Current slide animating in */}
-          <div className={`absolute inset-0 overflow-y-auto scrollbar-hide ${isAnimating ? (direction === 'right' ? 'slide-in-right' : 'slide-in-left') : ''}`}>
+          <div className={`absolute inset-0 overflow-y-auto scrollbar-hide ${isAnimating ? (direction === 'right' ? 'slide-in-right' : 'slide-in-left') : ''}`} data-shmonad-current-slide>
             {slides[current]}
           </div>
         </div>

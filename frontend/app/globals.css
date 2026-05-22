@@ -94,3 +94,27 @@ body {
 .slide-in-left {
   animation: slide-in-left 0.5s ease-in-out forwards;
 }
+
+.shmonad-exporting,
+.shmonad-exporting * {
+  outline: 0 !important;
+  box-shadow: none !important;
+}
+
+.shmonad-exporting h1,
+.shmonad-exporting h2,
+.shmonad-exporting h3,
+.shmonad-exporting p,
+.shmonad-exporting span,
+.shmonad-exporting img,
+.shmonad-exporting label {
+  border: 0 !important;
+}
+
+.shmonad-exporting input {
+  border: 1px solid rgba(255, 255, 255, 0.1) !important;
+}
+
+.shmonad-exporting button {
+  border: 0 !important;
+}
