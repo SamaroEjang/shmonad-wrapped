@@ -10,11 +10,16 @@ const PROTOCOL_ICONS: Record<string, string> = {
   'Neverland': '/icons/neverland.png',
   'Balancer': '/icons/balancer.png',
   'Townsquare': '/icons/townesquare.png',
+  'PancakeSwap': '/icons/searchnad.png',
+  'Monday Trade': '/icons/searchnad.png',
+  'Morpho': '/icons/searchnad.png',
+  'Aave Supply': '/icons/searchnad.png',
+  'Other Protocols': '/icons/searchnad.png',
   'Other': '/icons/searchnad.png',
 };
 
 export function PointsSlide({ data }: { data: WrappedData }) {
-  const topProtocols = data.pointsBreakdown;
+  const topProtocols = data.pointsBreakdown.filter((item) => item.amount > 0).slice(0, 4);
   
   return (
     <div className="min-h-full grid grid-cols-1 md:grid-cols-2 items-center text-white relative">

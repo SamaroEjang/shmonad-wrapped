@@ -16,6 +16,25 @@ const PROTOCOL_TRAITS: Record<string, { label: string; description: string; emoj
   'Townsquare': { emoji: '🏙️', label: 'Townesquare Titan', description: 'Highest points from Townesquare' },
 };
 function getProtocolKey(reason: string): string {
+  if (reason.includes('Townsquare') || reason.includes('Towne')) return 'Townsquare';
+  if (reason.includes('FastLaneZeroYieldTranche')) return 'Zero Yield';
+  if (reason.includes('FastLane Degen Pool') || reason.includes('FastLaneDegenPool')) return 'FastLane Degen Pool';
+  if (reason.includes('Neverland')) return 'Neverland';
+  if (reason.includes('Balancer')) return 'Balancer';
+  if (reason.includes('Euler_') || reason.includes('EULER_')) return 'Euler';
+  if (reason.includes('Uniswap')) return 'Uniswap V3';
+  if (reason.includes('PANCAKESWAP')) return 'PancakeSwap';
+  if (reason.includes('MONDAY_TRADE') || reason.includes('MONDAY TRADE')) return 'Monday Trade';
+  if (reason.includes('MorphoVault') || reason.includes('MorphoVaultV2')) return 'Morpho';
+  if (reason.includes('Aave')) return 'Aave Supply';
+  if (reason.toLowerCase().includes('curvance')) return 'Curvance';
+  if (reason.includes('103222f020e98Bba0AD9809A011FDF8e6F067496')) return 'Townsquare';
+  if (reason.includes('852FF1EC21D63b405eC431e04AE3AC760e29263D')) return 'FastLane Degen Pool';
+  if (reason.includes('Ad4AA2a713fB86FBb6b60dE2aF9E32a11DB6Abf2')) return 'Curvance shMON';
+  if (reason.includes('fD493ce1A0ae986e09d17004B7E748817a47d73c')) return 'Neverland';
+  if (reason.includes('E01d426B589c7834a5F6B20D7e992A705d3c22ED')) return 'shMON Wallet';
+  if (reason.includes('8E94704607E857eB3E10Bd21D90bf8C1Ecba0452')) return 'Zero Yield';
+
   // Remove addresses (0x...)
   let cleaned = reason.replace(/0x[a-fA-F0-9]{40}/g, '').trim();
   
@@ -25,7 +44,7 @@ function getProtocolKey(reason: string): string {
   if (cleaned.includes('Balancer')) return 'Balancer';
   if (cleaned.includes('Townsquare') || cleaned.includes('Towne')) return 'Townsquare';
   if (cleaned.startsWith('FastLaneZeroYieldTranche')) return 'Zero Yield';
-  if (cleaned.startsWith('ERC20')) return 'Other';
+  if (cleaned.startsWith('ERC20')) return 'Other Protocols';
   
   // Replace underscores with spaces and trim
   return cleaned.replace(/_/g, ' ').trim();
@@ -36,6 +55,12 @@ const EXTRA_PROTOCOL_TRAITS: Record<string, { label: string; description: string
   'Balancer': { emoji: '⚖️', label: 'Balancer Baron', description: 'Highest points from Balancer' },
   'Townsquare': { emoji: '🏙️', label: 'Townsquare Titan', description: 'Highest points from Townsquare' },
 };
+
+function formatRewardAmount(amount: string | number | bigint, decimals = 18): number {
+  const value = BigInt(amount.toString().split('.')[0] || '0');
+  const divisor = 10 ** decimals;
+  return Number(value) / divisor;
+}
 
 async function getProtocolStats(wallet: string) {
   const traits: { id: string; label: string; description: string }[] = [];
@@ -50,44 +75,53 @@ async function getProtocolStats(wallet: string) {
     
     const rewards = data[0]?.rewards;
     if (!rewards || rewards.length === 0) return { traits, totalPoints, protocolCount, pointsBreakdown };
-    
-    const breakdowns = rewards[0]?.breakdowns || [];
-    
-    // Calculate total points (use amount field)
-    if (rewards[0]?.amount) {
-      totalPoints = Math.round(parseFloat(rewards[0].amount) / 1e18);
-    }
 
     // Merge amounts by protocol
-    const merged: Record<string, bigint> = {};
+    const merged: Record<string, number> = {};
     let hasRPC = false;
-    for (const b of breakdowns) {
-      const reason = b.reason as string;
-      if (reason.includes('FastlaneRPC') || reason.includes('Fastlane_RPC') || reason.includes('RPC')) {
-        hasRPC = true;
-        continue;
+
+    for (const reward of rewards) {
+      const decimals = reward.token?.decimals ?? 18;
+
+      if (reward.amount) {
+        totalPoints += formatRewardAmount(reward.amount, decimals);
       }
-      const key = getProtocolKey(reason);
-      merged[key] = (merged[key] || BigInt(0)) + BigInt(b.amount);
+
+      const breakdowns = reward.breakdowns || [];
+      for (const b of breakdowns) {
+        const reason = b.reason as string;
+        if (reason.includes('FastlaneRPC') || reason.includes('Fastlane_RPC') || reason.includes('RPC')) {
+          hasRPC = true;
+          continue;
+        }
+
+        const key = getProtocolKey(reason);
+        merged[key] = (merged[key] || 0) + formatRewardAmount(b.amount, decimals);
+      }
     }
 
+    totalPoints = Math.round(totalPoints);
+
     // Convert merged data to breakdown array and sort by amount descending
-for (const [protocol, amount] of Object.entries(merged)) {
-  pointsBreakdown.push({
-    protocol,
-    amount: Math.round(Number(amount) / 1e18)
-  });
-}
+    for (const [protocol, amount] of Object.entries(merged)) {
+      const roundedAmount = Math.round(amount);
+      if (roundedAmount <= 0) continue;
 
-// Sort by amount in descending order
-pointsBreakdown.sort((a, b) => b.amount - a.amount);
+      pointsBreakdown.push({
+        protocol,
+        amount: roundedAmount
+      });
+    }
 
-// Count protocols (including RPC if present)
-protocolCount = Object.keys(merged).length + (hasRPC ? 1 : 0);
+    // Sort by amount in descending order
+    pointsBreakdown.sort((a, b) => b.amount - a.amount);
+
+    // Count visible protocols (including RPC if present)
+    protocolCount = pointsBreakdown.length + (hasRPC ? 1 : 0);
 
     // Find top protocol
     let topKey = '';
-    let topAmount = BigInt(0);
+    let topAmount = 0;
     for (const [key, amount] of Object.entries(merged)) {
       if (amount > topAmount) { topAmount = amount; topKey = key; }
     }

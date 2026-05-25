@@ -33,15 +33,19 @@ export function TraitsSlide({ data, twitterHandle, profilePic }: TraitsSlideProp
             <h2 className="text-2xl md:text-3xl font-semibold tracking-tight">Your Archetype</h2>
 
             {profilePic && (
-              <div className="flex items-center gap-3 rounded-2xl bg-white/5 border border-white/10 px-3 py-2">
-                <img
-                  src={profilePic}
-                  alt={displayHandle || 'X profile'}
-                  className="h-11 w-11 rounded-full border border-white/20 object-cover"
-                />
-                <div>
-                  <p className="text-[10px] font-mono uppercase tracking-wider text-white/40">X Profile</p>
-                  <p className="max-w-32 truncate text-sm font-semibold text-white">{displayHandle}</p>
+              <div className="flex items-center gap-4 rounded-3xl bg-white/8 border border-white/15 px-4 py-3 shadow-2xl shadow-black/20 md:min-w-64">
+                <div className="relative shrink-0">
+                  <div className="absolute inset-0 rounded-full bg-[#8B5CF6] blur-md opacity-35" />
+                  <img
+                    src={profilePic}
+                    alt={displayHandle || 'X profile'}
+                    className="relative h-16 w-16 md:h-20 md:w-20 rounded-full border-2 border-white/25 object-cover"
+                  />
+                </div>
+                <div className="min-w-0">
+                  <p className="text-[10px] md:text-xs font-mono uppercase tracking-wider text-white/40">X Profile</p>
+                  <p className="max-w-44 truncate text-xl md:text-2xl font-bold text-white">{displayHandle}</p>
+                  <p className="text-[10px] md:text-xs text-white/45">Verified archetype badge</p>
                 </div>
               </div>
             )}
