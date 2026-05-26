@@ -7,12 +7,14 @@ const MERKL_API = 'https://api.merkl.xyz/v4/users';
 const PROTOCOL_TRAITS: Record<string, { label: string; description: string; emoji: string }> = {
   'FastLane Degen Pool': { emoji: '🎰', label: 'Degen Overlord', description: 'Highest points from the Degen Pool' },
   'Curvance shMON': { emoji: '🔵', label: 'Curvance Commander', description: 'Highest points from Curvance' },
+  'Curvance': { emoji: '🔵', label: 'Curvance Commander', description: 'Highest points from Curvance' },
   'Uniswap V3': { emoji: '🦄', label: 'Uniswap Ultramarine', description: 'Highest points from Uniswap' },
   'shMON Wallet': { emoji: '💜', label: 'Yield Sovereign', description: 'Highest points from shMON staking' },
   'Zero Yield': { emoji: '⚡', label: 'Yield Sovereign', description: 'Highest points from Zero Yield staking' },
   'Euler': { emoji: '📐', label: 'Euler Elite', description: 'Highest points from Euler' },
   'Neverland': { emoji: '🏰', label: 'Neverland Noble', description: 'Highest points from Neverland' },
   'Balancer': { emoji: '⚖️', label: 'Balancer Baron', description: 'Highest points from Balancer' },
+  'PancakeSwap': { emoji: '🥞', label: 'Pancake Paladin', description: 'Highest points from PancakeSwap' },
   'Townsquare': { emoji: '🏙️', label: 'Townesquare Titan', description: 'Highest points from Townesquare' },
 };
 function getProtocolKey(reason: string): string {
@@ -51,8 +53,10 @@ function getProtocolKey(reason: string): string {
 }
 const EXTRA_PROTOCOL_TRAITS: Record<string, { label: string; description: string; emoji: string }> = {
   'Euler': { emoji: '📐', label: 'Euler Elite', description: 'Highest points from Euler' },
+  'Curvance': { emoji: '🔵', label: 'Curvance Commander', description: 'Highest points from Curvance' },
   'Neverland': { emoji: '🏰', label: 'Neverland Noble', description: 'Highest points from Neverland' },
   'Balancer': { emoji: '⚖️', label: 'Balancer Baron', description: 'Highest points from Balancer' },
+  'PancakeSwap': { emoji: '🥞', label: 'Pancake Paladin', description: 'Highest points from PancakeSwap' },
   'Townsquare': { emoji: '🏙️', label: 'Townsquare Titan', description: 'Highest points from Townsquare' },
 };
 
