@@ -49,3 +49,15 @@ CREATE TABLE IF NOT EXISTS indexer_state (
 
 INSERT INTO indexer_state VALUES (1, 0)
   ON CONFLICT (id) DO NOTHING;
+
+CREATE TABLE IF NOT EXISTS claims (
+  wallet         TEXT PRIMARY KEY,
+  amount         NUMERIC(78, 0) NOT NULL,
+  tx_hash        TEXT,
+  status         TEXT NOT NULL,
+  created_at     TIMESTAMPTZ NOT NULL DEFAULT NOW(),
+  broadcast_at   TIMESTAMPTZ,
+  confirmed_at   TIMESTAMPTZ
+);
+
+CREATE INDEX IF NOT EXISTS idx_claims_status ON claims(status);
