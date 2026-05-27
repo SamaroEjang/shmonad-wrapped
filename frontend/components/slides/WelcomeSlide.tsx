@@ -1,6 +1,7 @@
 'use client';
 import { useState } from 'react';
 import { WrappedData } from '@/lib/api';
+import { SlideFrame } from './SlideFrame';
 
 type WelcomeSlideProps = {
   data: WrappedData;
@@ -31,26 +32,15 @@ export function WelcomeSlide({
   const showInput = !profilePic;
 
   return (
-    <div className="min-h-full grid grid-cols-1 md:grid-cols-2 items-center text-white relative" suppressHydrationWarning>
-      {/* Tech Label with Logo */}
-      <div className="absolute top-4 left-4 md:top-8 md:left-8 flex items-center gap-2 md:gap-3">
-        <img src="/icons/FL-icon.png" alt="FastLane" className="w-6 h-6 md:w-8 md:h-8" />
-        <div className="font-mono text-[10px] md:text-xs tracking-widest text-white/30 uppercase">
-          FASTLANE
-        </div>
-      </div>
-      
-      <div className="hidden md:block"></div>
-      
-      <div className="flex flex-col items-center justify-center p-4 md:p-8 md:pr-16">
-        <div className="w-full max-w-md" style={{
-          backgroundColor: 'rgba(255, 255, 255, 0.02)',
-          borderRadius: '32px',
-          padding: '24px',
-          backdropFilter: 'blur(20px)',
-          WebkitBackdropFilter: 'blur(20px)',
-        }}>
-          
+    <div suppressHydrationWarning>
+      <SlideFrame
+        eyebrow="FASTLANE"
+        logo={<img src="/icons/FL-icon.png" alt="FastLane" className="w-6 h-6 md:w-8 md:h-8" />}
+        title="Replay your"
+        accent="shMonad year."
+        description="Paste a wallet, connect an X profile if you want the badge, and turn your staking history into a shareable story."
+        maxWidth="max-w-md"
+      >
           {profilePic && (
             <img 
               src={profilePic} 
@@ -65,7 +55,7 @@ export function WelcomeSlide({
             </div>
           )}
           
-          <div className="font-mono text-[10px] md:text-xs bg-white/5 px-3 md:px-4 py-1.5 md:py-2 rounded-full inline-block mb-2 md:mb-3 tracking-wider">
+          <div className="font-mono text-[10px] md:text-xs bg-white/7 px-3 md:px-4 py-1.5 md:py-2 rounded-full inline-block mb-2 md:mb-3 tracking-wider">
             WRAPPED 2025
           </div>
           
@@ -95,7 +85,7 @@ export function WelcomeSlide({
             </div>
           )}
           
-          <div className="bg-white/5 rounded-2xl md:rounded-3xl p-4 md:p-6 mb-4 md:mb-5 text-center backdrop-blur-sm">
+          <div className="bg-white/6 border border-white/8 rounded-2xl md:rounded-3xl p-4 md:p-6 mb-4 md:mb-5 text-center backdrop-blur-sm">
             <p className="text-4xl md:text-6xl font-bold mb-1">2025</p>
             <p className="text-[10px] md:text-xs text-white/50">Your shMonad journey</p>
           </div>
@@ -105,8 +95,7 @@ export function WelcomeSlide({
             <span className="font-bold">{100 - (data.percentileRank || 0)}%</span>{' '}
             <span className="text-white/50">of all holders</span>
           </p>
-        </div>
-      </div>
+      </SlideFrame>
     </div>
   );
 }
