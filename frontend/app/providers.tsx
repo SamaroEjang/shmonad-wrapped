@@ -6,7 +6,7 @@ import { QueryClientProvider, QueryClient } from '@tanstack/react-query';
 import { defineChain } from 'viem';
 
 const monad = defineChain({
-  id: 10143,
+  id: 143,
   name: 'Monad',
   nativeCurrency: { name: 'Monad', symbol: 'MON', decimals: 18 },
   rpcUrls: { default: { http: [process.env.NEXT_PUBLIC_RPC_URL || ''] } },

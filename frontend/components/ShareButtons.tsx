@@ -2,7 +2,12 @@
 import { useState } from 'react';
 import domtoimage from 'dom-to-image-more';
 
-export function ShareButtons({ wallet }: { wallet: string }) {
+type ShareButtonsProps = {
+  wallet: string;
+  onShare?: () => void;
+};
+
+export function ShareButtons({ wallet, onShare }: ShareButtonsProps) {
   const [isCapturing, setIsCapturing] = useState(false);
 
   const captureAndDownload = async () => {
@@ -147,6 +152,7 @@ export function ShareButtons({ wallet }: { wallet: string }) {
   const shareToTwitter = () => {
     const text = encodeURIComponent(`Check out my shMonad Wrapped! 🎊\n\n${window.location.href}`);
     window.open(`https://twitter.com/intent/tweet?text=${text}`, '_blank');
+    onShare?.();
   };
 
   return (
