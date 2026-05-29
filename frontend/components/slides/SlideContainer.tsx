@@ -113,7 +113,13 @@ export function SlideContainer({ data }: { data: WrappedData }) {
         }}>
           <div className="hidden md:block"></div>
           <div className="flex flex-col items-center p-4 md:p-8 md:pr-16 gap-3 md:gap-4">
-            <ShareButtons wallet={data.wallet} onShare={handleShared} />
+            <ShareButtons
+              wallet={data.wallet}
+              data={data}
+              twitterHandle={twitterHandle}
+              profilePic={profilePic}
+              onShare={handleShared}
+            />
             <div className="flex gap-2 md:gap-3">
               {current > 0 && (
                 <button

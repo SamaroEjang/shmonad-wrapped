@@ -17,7 +17,7 @@ export function SlideFrame({
   accent,
   description,
   children,
-  maxWidth = 'max-w-2xl',
+  maxWidth = 'max-w-xl',
 }: SlideFrameProps) {
   return (
     <div className="min-h-full grid grid-cols-1 md:grid-cols-2 items-center text-white relative">
@@ -28,9 +28,9 @@ export function SlideFrame({
         </div>
       </div>
 
-      <div className="flex flex-col justify-center px-6 pt-20 pb-6 md:px-16 md:py-28 lg:px-20">
-        <div className="max-w-md">
-          <h1 className="text-4xl md:text-5xl lg:text-6xl font-light leading-[1.05] tracking-normal">
+      <div className="flex flex-col justify-center px-5 pt-14 pb-3 md:px-12 md:py-20 lg:px-16">
+        <div className="max-w-sm lg:max-w-md">
+          <h1 className="text-3xl md:text-5xl lg:text-[56px] font-light leading-[1.05] tracking-normal">
             {title}
             {accent && (
               <>
@@ -39,19 +39,19 @@ export function SlideFrame({
               </>
             )}
           </h1>
-          <p className="mt-6 md:mt-8 max-w-xs text-sm md:text-base leading-relaxed text-white/62">
+          <p className="mt-3 md:mt-6 max-w-xs text-xs md:text-[15px] leading-relaxed text-white/62">
             {description}
           </p>
         </div>
       </div>
 
-      <div className="flex flex-col items-center justify-center px-4 pb-6 md:p-8 md:pr-16">
+      <div className="flex flex-col items-center justify-center px-4 pb-5 md:px-6 md:py-20 md:pr-12 lg:pr-16">
         <div
           className={`w-full ${maxWidth} border border-white/10 shadow-2xl shadow-black/30`}
           style={{
             backgroundColor: 'rgba(255, 255, 255, 0.035)',
-            borderRadius: '32px',
-            padding: '24px',
+            borderRadius: '28px',
+            padding: 'clamp(16px, 2vw, 20px)',
             backdropFilter: 'blur(20px)',
             WebkitBackdropFilter: 'blur(20px)',
           }}

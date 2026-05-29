@@ -37,7 +37,7 @@ export function WelcomeSlide({
         eyebrow="FASTLANE"
         logo={<img src="/icons/FL-icon.png" alt="FastLane" className="w-6 h-6 md:w-8 md:h-8" />}
         title="Replay your"
-        accent="shMonad year."
+        accent="shWrapped."
         description="Paste a wallet, connect an X profile if you want the badge, and turn your staking history into a shareable story."
         maxWidth="max-w-md"
       >
@@ -56,11 +56,11 @@ export function WelcomeSlide({
           )}
           
           <div className="font-mono text-[10px] md:text-xs bg-white/7 px-3 md:px-4 py-1.5 md:py-2 rounded-full inline-block mb-2 md:mb-3 tracking-wider">
-            WRAPPED 2025
+            SHWRAPPED 2026
           </div>
           
           <h1 className="text-2xl md:text-4xl font-semibold mb-1 md:mb-2 tracking-tight">
-            shMonad Wrapped
+            shWrapped
           </h1>
           
           <p className="text-xs md:text-sm text-white/50 mb-4 md:mb-6 font-mono">
@@ -86,7 +86,7 @@ export function WelcomeSlide({
           )}
           
           <div className="bg-white/6 border border-white/8 rounded-2xl md:rounded-3xl p-4 md:p-6 mb-4 md:mb-5 text-center backdrop-blur-sm">
-            <p className="text-4xl md:text-6xl font-bold mb-1">2025</p>
+            <p className="text-4xl md:text-6xl font-bold mb-1">2026</p>
             <p className="text-[10px] md:text-xs text-white/50">Your shMonad journey</p>
           </div>
           

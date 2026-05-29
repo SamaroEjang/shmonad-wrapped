@@ -34,7 +34,7 @@ export default function Home() {
 
         {/* Title */}
         <div className="text-center">
-          <h1 className="text-4xl font-black text-white mb-2 tracking-tight">shMonad Wrapped</h1>
+          <h1 className="text-4xl font-black text-white mb-2 tracking-tight">shWrapped</h1>
           <p className="text-white/40 text-sm">Your on-chain story, visualized.</p>
         </div>
 
@@ -56,7 +56,7 @@ export default function Home() {
           onClick={handleSubmit}
           className="w-full py-3 rounded-xl bg-purple-600 hover:bg-purple-500 active:scale-95 text-white font-bold transition-all text-sm shadow-lg shadow-purple-900/40"
         >
-          View My Wrapped →
+          View My shWrapped →
         </button>
 
         {/* Footer note */}

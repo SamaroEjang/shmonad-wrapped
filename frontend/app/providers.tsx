@@ -13,7 +13,7 @@ const monad = defineChain({
 });
 
 const config = getDefaultConfig({
-  appName: 'shMonad Wrapped',
+  appName: 'shWrapped',
   projectId: process.env.NEXT_PUBLIC_WALLETCONNECT_PROJECT_ID!,
   chains: [monad],
   ssr: true,

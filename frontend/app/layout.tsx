@@ -3,7 +3,7 @@ import './globals.css';
 import { ClientProviders } from './client-providers';
 
 export const metadata: Metadata = {
-  title: 'shMonad Wrapped',
+  title: 'shWrapped',
   description: 'Your shMON journey on Monad',
 };
 

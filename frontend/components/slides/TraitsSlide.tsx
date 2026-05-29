@@ -44,28 +44,28 @@ export function TraitsSlide({ data, twitterHandle, profilePic }: TraitsSlideProp
       accent="archetype."
       description="Your traits translate staking behavior into an identity: the protocol you leaned into, the habits you kept, and the role your wallet played."
     >
-      <div className="flex flex-col gap-4 md:flex-row md:items-start md:justify-between mb-5 md:mb-6">
+      <div className="flex flex-col gap-3 md:flex-row md:items-start md:justify-between mb-3 md:mb-5">
         <div>
-          <div className="font-mono text-[10px] md:text-xs bg-white/7 px-3 md:px-4 py-1.5 md:py-2 rounded-full inline-block mb-3 md:mb-4 tracking-wider">
+          <div className="font-mono text-[10px] md:text-xs bg-white/7 px-3 py-1.5 rounded-full inline-block mb-2.5 md:mb-3 tracking-wider">
             YOUR TRAITS
           </div>
-          <h2 className="text-2xl md:text-3xl font-semibold tracking-tight">Your Archetype</h2>
-          <div className="mt-3 h-1 w-12 rounded-full bg-[#A855F7]" />
+          <h2 className="text-xl md:text-[28px] font-semibold tracking-tight">Your Archetype</h2>
+          <div className="mt-2 h-1 w-10 md:w-11 rounded-full bg-[#A855F7]" />
         </div>
 
         {profilePic && (
-          <div className="flex items-center gap-3 rounded-3xl bg-white/8 border border-white/15 px-4 py-3 shadow-2xl shadow-black/20 md:min-w-64">
+          <div className="flex items-center gap-2.5 rounded-3xl bg-white/8 border border-white/15 px-3 py-2.5 shadow-2xl shadow-black/20 md:min-w-52">
             <div className="relative shrink-0">
               <div className="absolute inset-0 rounded-full bg-[#8B5CF6] blur-md opacity-45" />
               <img
                 src={profilePic}
                 alt={displayHandle || 'X profile'}
-                className="relative h-14 w-14 md:h-16 md:w-16 rounded-full border-2 border-white/25 object-cover"
+                className="relative h-12 w-12 md:h-14 md:w-14 rounded-full border-2 border-white/25 object-cover"
               />
             </div>
             <div className="min-w-0">
               <p className="text-[10px] md:text-xs font-mono uppercase tracking-wider text-[#A855F7]">X Profile</p>
-              <p className="max-w-44 truncate text-lg md:text-xl font-bold text-white">{displayHandle}</p>
+              <p className="max-w-36 truncate text-base md:text-lg font-bold text-white">{displayHandle}</p>
               <p className="text-[10px] md:text-xs text-white/45">Verified archetype badge</p>
             </div>
           </div>
@@ -73,11 +73,11 @@ export function TraitsSlide({ data, twitterHandle, profilePic }: TraitsSlideProp
       </div>
 
       {sortedTraits.length === 0 ? (
-        <div className="bg-white/6 border border-white/8 rounded-2xl md:rounded-3xl p-6 md:p-8 text-center backdrop-blur-sm">
-          <p className="text-white/50 text-sm md:text-base">Keep staking to unlock traits!</p>
+        <div className="bg-white/6 border border-white/8 rounded-2xl md:rounded-3xl p-4 md:p-6 text-center backdrop-blur-sm">
+          <p className="text-white/50 text-xs md:text-base">Keep staking to unlock traits!</p>
         </div>
       ) : (
-        <div className="grid grid-cols-1 gap-2.5 md:gap-3">
+        <div className="grid grid-cols-1 gap-2 md:gap-2.5">
           {sortedTraits.map((trait, idx) => {
             const archetypeImage = ARCHETYPE_IMAGES[trait.id];
             const title = getTraitTitle(trait.label, Boolean(archetypeImage));
@@ -85,10 +85,10 @@ export function TraitsSlide({ data, twitterHandle, profilePic }: TraitsSlideProp
             return (
               <div
                 key={trait.id}
-                className="flex items-center gap-3 bg-white/6 border border-white/8 rounded-xl md:rounded-2xl p-3 md:p-4 backdrop-blur-sm"
+                className="flex items-center gap-2.5 md:gap-3 bg-white/6 border border-white/8 rounded-xl md:rounded-2xl p-2.5 md:p-3 backdrop-blur-sm"
               >
                 {archetypeImage ? (
-                  <div className="relative h-20 w-20 md:h-24 md:w-24 shrink-0 overflow-hidden rounded-xl border border-white/15 bg-black/30">
+                  <div className="relative h-12 w-12 md:h-20 md:w-20 shrink-0 overflow-hidden rounded-xl border border-white/15 bg-black/30">
                     <img
                       src={archetypeImage}
                       alt={trait.label}
@@ -96,17 +96,17 @@ export function TraitsSlide({ data, twitterHandle, profilePic }: TraitsSlideProp
                     />
                   </div>
                 ) : (
-                  <div className="flex h-14 w-14 md:h-16 md:w-16 shrink-0 items-center justify-center rounded-xl border border-white/10 bg-white/5 text-2xl">
+                  <div className="flex h-10 w-10 md:h-14 md:w-14 shrink-0 items-center justify-center rounded-xl border border-white/10 bg-white/5 text-lg md:text-2xl">
                     {trait.label.split(' ')[0]}
                   </div>
                 )}
 
                 <div className="min-w-0">
-                  <p className="mb-1 font-mono text-[10px] md:text-xs uppercase tracking-wider text-[#A855F7]">
+                  <p className="mb-0.5 md:mb-1 font-mono text-[9px] md:text-xs uppercase tracking-wider text-[#A855F7]">
                     {archetypeImage && idx === 0 ? 'Primary Archetype' : 'Secondary Archetype'}
                   </p>
-                  <p className="text-lg md:text-xl font-bold leading-tight">{title}</p>
-                  <p className="mt-1 text-xs md:text-sm text-white/60">{trait.description}</p>
+                  <p className="text-sm md:text-lg font-bold leading-tight">{title}</p>
+                  <p className="mt-0.5 md:mt-1 text-[11px] md:text-[13px] text-white/60">{trait.description}</p>
                 </div>
               </div>
             );
@@ -114,7 +114,7 @@ export function TraitsSlide({ data, twitterHandle, profilePic }: TraitsSlideProp
         </div>
       )}
 
-      <div className="mt-3 rounded-xl md:rounded-2xl border border-[#A855F7]/20 bg-[#A855F7]/20 px-4 py-3 text-xs md:text-sm text-white/70">
+      <div className="mt-2 rounded-xl md:rounded-2xl border border-[#A855F7]/20 bg-[#A855F7]/20 px-3 md:px-4 py-2 md:py-2.5 text-[11px] md:text-[13px] text-white/70">
         Archetypes evolve. Keep building to unlock your next signal.
       </div>
     </SlideFrame>
