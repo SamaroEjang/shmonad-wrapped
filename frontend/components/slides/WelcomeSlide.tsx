@@ -89,11 +89,9 @@ export function WelcomeSlide({
             <p className="text-4xl md:text-6xl font-bold mb-1">2026</p>
             <p className="text-[10px] md:text-xs text-white/50">Your shMonad journey</p>
           </div>
-          
-          <p className="text-center text-sm md:text-base">
-            <span className="text-white/50">Top</span>{' '}
-            <span className="font-bold">{100 - (data.percentileRank || 0)}%</span>{' '}
-            <span className="text-white/50">of all holders</span>
+
+          <p className="text-center font-mono text-[10px] md:text-xs uppercase tracking-[0.28em] text-white/35">
+            gshMonad
           </p>
       </SlideFrame>
     </div>

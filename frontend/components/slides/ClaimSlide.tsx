@@ -373,6 +373,11 @@ function EligibleCard({
         <p className="text-3xl md:text-5xl font-bold mb-1">{amountDisplay}</p>
         <p className="text-[10px] md:text-xs text-white/50 font-mono">CLAIMABLE</p>
       </div>
+      <div className="mb-4 md:mb-5 rounded-2xl border border-amber-300/25 bg-amber-300/10 px-4 py-3 text-center">
+        <p className="text-xs md:text-sm font-semibold text-amber-100">
+          This is not an airdrop.
+        </p>
+      </div>
 
       {claimState.kind === 'confirmed' ? (
         <ConfirmedState txHash={claimState.txHash} />
